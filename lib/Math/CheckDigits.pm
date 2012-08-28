@@ -6,7 +6,7 @@ use warnings;
 use integer;
 use utf8;
 our $VERSION = '0.02';
-$VERSION = eval $VERSION;
+$VERSION = eval $VERSION; ## no critic
 
 my %DEFAULT = (
     TRANS_TABLE => {},
@@ -28,29 +28,29 @@ sub new {
     }
     die 'not enough arguments!'
         if !$self->{modulus} || !$self->{weight};
-    
+
     bless $self, $cls;
 }
 
 sub checkdigit {
     my $self = shift;
     my @digits = split //, shift;
-    
+
     @digits = reverse @digits if $self->options('start_at_right');
-    
+
     my $check_sum = $self->_calc_check_sum( $self->{weight}, @digits );
     my $check_digit = $check_sum % $self->{modulus};
-    
+
     # DSR or DR ?
     $check_digit = $self->{modulus} - $check_digit if $self->options('DSR');
-    
+
     # see trans table if exists. ( eg. 16 => 'g' )
     my %trans_table = $self->trans_table;
-    $check_digit = 
-        defined $trans_table{$check_digit} ? 
+    $check_digit =
+        defined $trans_table{$check_digit} ?
         $trans_table{$check_digit} : $check_digit;
     $check_digit = 0 if length( $check_digit ) >= 2;
-    
+
     return $check_digit;
 }
 
@@ -77,30 +77,30 @@ sub trans_table {
 
 sub options {
     my $self = shift;
-    
+
     return %{$self->{OPTIONS}} if @_ == 0;
     return $self->{OPTIONS}{$_[0]} if (@_ == 1) && (!ref $_[0]);
-    
+
     $self->{OPTIONS}
         = { %{$self->{OPTIONS}}, ref $_[0] ? %{$_[0]} : @_ };
-    
+
     return $self;
 }
 
 sub _calc_check_sum {
     my $self = shift;
     my ( $weight, @digits ) = @_;
-    
+
     my %trans_table = reverse $self->trans_table;
     for ( keys %trans_table ){
         delete $trans_table{$_} if /\d/;
     }
-    
+
     my ( $i, $check_sum ) = ( 0, 0 );
     for my $digit ( @digits ){
         my $num = defined $trans_table{$digit} ? $trans_table{$digit} : $digit;
         die "'$num' does not map to number. Use trans_table method." if $num =~ /\D/;
-        
+
         $num = $weight->[ $i % @$weight ] * $num;
         if ( !$self->options('runes') ){
             $check_sum += $num;
@@ -111,7 +111,7 @@ sub _calc_check_sum {
         }
         $i++;
     }
-    
+
     return $check_sum;
 }
 
@@ -125,7 +125,7 @@ Math::CheckDigits - Perl Module to generate and test check digits
 =head1 SYNOPSIS
 
   use Math::CheckDigits;
-  my $cd = Math::CheckDigits->new( 
+  my $cd = Math::CheckDigits->new(
     modulus => 11,
     weight  => [2..7],
   );
@@ -142,10 +142,10 @@ set options
   )->options(
     runes => 1,
   );
-  
+
   print $cd->complete('348764') #3487649
 
-advenced
+advanced
 
   # modulus 16
   use Math::CheckDigits;
