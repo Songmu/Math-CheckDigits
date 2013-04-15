@@ -2,6 +2,10 @@ Revision history for Perl extension Math::CheckDigits
 
 {{$NEXT}}
 
+0.05 2013-04-15T14:46:35Z
+
+        - fix packaging only
+
 0.04 2013-04-15T02:28:52Z
 
         - can specify single scalar as `weight`
