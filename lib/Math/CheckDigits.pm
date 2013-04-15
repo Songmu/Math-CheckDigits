@@ -29,6 +29,10 @@ sub new {
     die 'not enough arguments!'
         if !$self->{modulus} || !$self->{weight};
 
+    if (!ref $self->{weight}) {
+        $self->{weight} = [1, $self->{weight}];
+    }
+
     bless $self, $cls;
 }
 
