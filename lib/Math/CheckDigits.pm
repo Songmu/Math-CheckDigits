@@ -9,8 +9,8 @@ our $VERSION = '0.03';
 $VERSION = eval $VERSION; ## no critic
 
 my %DEFAULT = (
-    TRANS_TABLE => {},
-    OPTIONS     => {
+    trans_table => {},
+    options     => {
         start_at_right  => 1, # multipule
         DSR             => 1, # use DSR or DR
         runes           => 0, # use runes
@@ -23,7 +23,7 @@ sub new {
     if ( @_ == 2 ){
         ( $self->{modulus}, $self->{weight} ) = @_
     }
-    else{
+    else {
         $self = { %$self, ref $_[0] ? %{$_[0]} : @_ };
     }
     die 'not enough arguments!'
@@ -69,20 +69,20 @@ sub complete {
 sub trans_table {
     my $self = shift;
     if ( @_ ){
-        $self->{TRANS_TABLE} = ref $_[0] ? shift : { @_ };
+        $self->{trans_table} = ref $_[0] ? shift : { @_ };
         return $self;
     }
-    return %{$self->{TRANS_TABLE}};
+    return %{$self->{trans_table}};
 }
 
 sub options {
     my $self = shift;
 
-    return %{$self->{OPTIONS}} if @_ == 0;
-    return $self->{OPTIONS}{$_[0]} if (@_ == 1) && (!ref $_[0]);
+    return %{$self->{options}} if @_ == 0;
+    return $self->{options}{$_[0]} if (@_ == 1) && (!ref $_[0]);
 
-    $self->{OPTIONS}
-        = { %{$self->{OPTIONS}}, ref $_[0] ? %{$_[0]} : @_ };
+    $self->{options}
+        = { %{$self->{options}}, ref $_[0] ? %{$_[0]} : @_ };
 
     return $self;
 }
