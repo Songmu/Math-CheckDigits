@@ -30,7 +30,7 @@ sub new {
         if !$self->{modulus} || !$self->{weight};
 
     if (!ref $self->{weight}) {
-        $self->{weight} = [1, $self->{weight}];
+        $self->{weight} = [$self->{weight}, 1];
     }
 
     bless $self, $cls;

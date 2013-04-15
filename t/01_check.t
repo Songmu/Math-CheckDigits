@@ -36,7 +36,6 @@ subtest 'modulus10 weight3' => sub {
     ok $cd->is_valid('123457');
 };
 
-
 subtest 'start_at_right(old ISBN)' => sub {
     my $cd = Math::CheckDigits->new(
             modulus => 11,
@@ -78,6 +77,19 @@ subtest 'modules16' => sub {
     );
 
     is $cd->checkdigit('a16329aa'), '$';
+};
+
+
+subtest 'modulus10 weight3 (jan code)' => sub {
+    my $cd = Math::CheckDigits->new({
+        modulus => 10,
+        weight  => 3,
+    });
+    ok $cd;
+
+    ok $cd->is_valid('49401387');
+    ok $cd->is_valid('4909411050405');
+    ok $cd->is_valid('4902555136592');
 };
 
 done_testing;
