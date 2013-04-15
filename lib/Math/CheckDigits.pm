@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use integer;
 use utf8;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 $VERSION = eval $VERSION; ## no critic
 
 my %DEFAULT = (
