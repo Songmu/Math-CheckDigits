@@ -12,3 +12,9 @@ MANIFEST.bak
 tmp/
 MYMETA.yml
 MYMETA.json
+/Math-CheckDigits-*
+/.build
+/_build_params
+/Build
+!Build/
+!META.json

@@ -1,5 +1,7 @@
 Revision history for Perl extension Math::CheckDigits
 
+{{$NEXT}}
+
 0.03    Tue Aug  6 16:11:23 2012
         - add tests
 
