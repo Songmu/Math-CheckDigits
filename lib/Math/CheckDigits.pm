@@ -19,7 +19,7 @@ my %DEFAULT = (
 
 sub new {
     my $cls = shift;
-    my $self = \%DEFAULT;
+    my $self = {};
     if ( @_ == 2 ){
         ( $self->{modulus}, $self->{weight} ) = @_
     }
@@ -32,6 +32,16 @@ sub new {
     if (!ref $self->{weight}) {
         $self->{weight} = [$self->{weight}, 1];
     }
+
+    $self->{trans_table} = {
+        %{$DEFAULT{trans_table}},
+        %{$self->{trans_table} || {}},
+    };
+
+    $self->{options} = {
+        %{$DEFAULT{options}},
+        %{$self->{options} || {}},
+    };
 
     bless $self, $cls;
 }
